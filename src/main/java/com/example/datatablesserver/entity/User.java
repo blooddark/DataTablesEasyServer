@@ -2,8 +2,10 @@ package com.example.datatablesserver.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+
+import java.util.Date;
+
 
 /**
  * @author Eddy
@@ -15,4 +17,5 @@ public class User {
     private String username;
     private Integer gender;
     private String remark;
+    private Date birthday;
 }

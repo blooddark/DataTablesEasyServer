@@ -37,22 +37,22 @@ public class UserController {
     @GetMapping
     public DataTablesResponseDTO getUserList(Long start, Long length, String draw,
                                              @RequestParam("search[value]") String searchAll,
-                                             @RequestParam Map<String, String> requestMap) {
+                                             @RequestParam Map<String, Object> requestMap) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         QueryWrapper<User> allQueryWrapper = new QueryWrapper<>();
         // 条件查询
         for (int i = 0; requestMap.containsKey("columns["+i+"][data]"); i++) {
-            queryWrapper.like(requestMap.get("columns["+i+"][data]"), requestMap.get("columns["+i+"][search][value]"));
+            queryWrapper.like(String.valueOf(requestMap.get("columns["+i+"][data]")), requestMap.get("columns["+i+"][search][value]"));
         }
         // 排序
         for (int i = 0; requestMap.containsKey("order["+i+"][column]"); i++) {
             queryWrapper.orderBy(true, "asc".equals(requestMap.get("order["+i+"][dir]")),
-                    requestMap.get("columns["+requestMap.get("order["+i+"][column]")+"][data]"));
+                    (String) requestMap.get("columns["+requestMap.get("order["+i+"][column]")+"][data]"));
         }
         // 全列搜索
         queryWrapper.and((wrapper) -> {
             for (int i = 0; requestMap.containsKey("columns["+i+"][data]"); i++) {
-                wrapper.or().like(requestMap.get("columns["+i+"][data]"), searchAll);
+                wrapper.or().like(String.valueOf(requestMap.get("columns["+i+"][data]")), searchAll);
             }
             return wrapper;
         });

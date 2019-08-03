@@ -3,4 +3,7 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3305/datatables?serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3305/datatables?serverTimezone=GMT%2B8
+
+  mvc:
+    date-format: yyyy-MM-dd
